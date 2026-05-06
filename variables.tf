@@ -1,4 +1,13 @@
-variable "prefix" {}
+variable "prefix" {
+  type        = string
+  default     = "contoso"
+  description = "Prefix used when naming resources"
+
+  validation {
+    condition     = length(trimspace(var.prefix)) > 0
+    error_message = "The prefix must not be empty."
+  }
+}
 
 variable "region" {
   type        = string
@@ -11,6 +20,7 @@ variable "region" {
 }
 
 variable "tags" {
-  type        = map(any)
+  type        = map(string)
+  default     = {}
   description = "A map of tags"
 }
